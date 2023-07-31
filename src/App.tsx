@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Form from './components/Form';
+import Header from './components/Header';
+import List from './components/List';
+import { Todo } from './model/interface';
 
 function App() {
+  const todoList = JSON.parse(localStorage.getItem('todo') || '[]') as Todo[];
+  const [todos, setTodos] = useState<Todo[]>(todoList);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="layout">
+      <Header />
+      <Form todos={todos} setTodos={setTodos} />
+      <List todos={todos} setTodos={setTodos} />
     </div>
   );
 }
